@@ -5,6 +5,7 @@ theme:
 nav:
   - Home: index.md
   - why.md
+  - tutorial.md
   - Common recipes:
     - qemu-from-source.md
     - qemu-rpm-installation.md
