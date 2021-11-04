@@ -4,6 +4,7 @@ theme:
   name: material
 nav:
   - Home: index.md
+  - why.md
   - Common recipes:
     - qemu-from-source.md
     - qemu-rpm-installation.md
