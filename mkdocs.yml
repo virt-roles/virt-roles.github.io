@@ -1,3 +1,9 @@
 site_name: virt-roles
+repo_url: https://github.com/virt-roles/virt-roles
 theme:
   name: material
+nav:
+  - Home: index.md
+  - Common recipes:
+    - qemu-from-source.md
+    - qemu-rpm-installation.md
