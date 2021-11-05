@@ -4,29 +4,38 @@ This tutorial walks through the creation of a guest and running "Hello World"
 inside the guest. This basic workflow can be used in many situations like
 reproducing bugs or running benchmarks.
 
+We will write an Ansible playbook and run it from the local machine. Ansible
+will connect to the host and guest over ssh and execute the playbook steps
+there.
+
 ## Installing Ansible
 
 Install Ansible:
 
 ```shell
-$ sudo dnf install ansible
+(local)$ sudo dnf install ansible
 ```
+
+From time to time Ansible features are deprecated so you may wish to build
+container images that combine a particular version of Ansible with your
+playbooks. This will ensure that your playbook executes successfully and
+without warnings in the future.
 
 ## Cloning virt-roles
 
 Clone the virt-roles git repository:
 
 ```shell
-$ git clone https://github.com/virt-roles/virt-roles.git
+(local)$ git clone https://github.com/virt-roles/virt-roles.git
 ```
 
 Make the roles available to Ansible by installing symlinks into
 `~/.ansible/roles/`:
 
 ```shell
-$ mkdir -p ~/.ansible/roles
-$ cd ~/.ansible/roles
-$ for f in ~/virt-tasks/*; do test -d "$f" && ln -s "$f" .; done
+(local)$ mkdir -p ~/.ansible/roles
+(local)$ cd ~/.ansible/roles
+(local)$ for f in ~/virt-tasks/*; do test -d "$f" && ln -s "$f" .; done
 ```
 
 Playbooks can now include roles from virt-roles.
@@ -39,6 +48,7 @@ haven't created yet). This is done by specifying an Ansible inventory.
 Add `ssh_config(1)` `Host` entries for the host and the guest:
 
 ```ini
+(local)$ cat >>~/.ssh/config
 Host myhost
 Hostname myhost.f.q.d.n
 User root
@@ -49,6 +59,7 @@ Hostname 192.168.122.192
 User root
 ProxyJump myhost
 StrictHostKeyChecking no
+^D
 ```
 
 Here myhost.f.q.d.n is the fully-qualified domain name or IP address of the
@@ -62,11 +73,13 @@ your local machine.
 Create an Ansible inventory with ssh-config(1) `Host` aliases:
 
 ```ini
+(local)$ cat >hosts
 [hosts]
 myhost
 
 [guests]
 myguest
+^D
 ```
 
 ## Creating a playbook
@@ -75,13 +88,13 @@ Now that the inventory has been defined we can test that Ansible can run a
 simple playbook on the host:
 
 ```shell
-$ cat >tutorial.yml
+(local)$ cat >tutorial.yml
 ---
 - hosts: hosts
   tasks:
     - shell: echo "Hello world from the host"
 ^D
-$ ansible-playbook -v -i hosts tutorial.yml
+(local)$ ansible-playbook -v -i hosts tutorial.yml
 ...
 TASK [shell] *********************************************************************************
 changed: [myhost] => {
@@ -131,8 +144,8 @@ Writing libvirt domain XML from scratch is hard, but the `virt-install(1)`
 command can generate it for us:
 
 ```shell
-myhost# virt-install --import --name myguest --ram 2048 --disk path=/var/lib/libvirt/images/myguest.img,format=raw --os-variant fedora34
-myhost# virsh dumpxml myguest
+(myhost)# virt-install --import --name myguest --ram 2048 --disk path=/var/lib/libvirt/images/myguest.img,format=raw --os-variant fedora34
+(myhost)# virsh dumpxml myguest
 ...XML...
 ```
 
