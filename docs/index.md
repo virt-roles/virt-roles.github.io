@@ -19,6 +19,4 @@ following playbook creates a Fedora disk image:
         - output: /var/lib/libvirt/images/fedora.img
 ```
 
-Get started at the [virt-roles
-repository](https://github.com/virt-roles/virt-roles) or read guides with
-detailed information on writing your own Ansible playbooks on this site.
+To get started, check out the [tutorial](tutorial.md). Chat with us at [#virt-roles:matrix.org](https://matrix.to/#/#virt-roles:matrix.org) or contribute at [virt-roles repository](https://github.com/virt-roles/virt-roles).
