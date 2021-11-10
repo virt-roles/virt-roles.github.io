@@ -1,0 +1,780 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
+    
+    
+      
+        <title>Tutorial: A "Hello World" guest - virt-roles</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tutorial-a-hello-world-guest" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="virt-roles" class="md-header__button md-logo" aria-label="virt-roles" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            virt-roles
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tutorial: A "Hello World" guest
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/virt-roles/virt-roles/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="virt-roles" class="md-nav__button md-logo" aria-label="virt-roles" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    virt-roles
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/virt-roles/virt-roles/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why/" class="md-nav__link">
+        Why and when to automate
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Tutorial: A "Hello World" guest
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Tutorial: A "Hello World" guest
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-ansible" class="md-nav__link">
+    Installing Ansible
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloning-virt-roles" class="md-nav__link">
+    Cloning virt-roles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-an-ansible-inventory" class="md-nav__link">
+    Creating an Ansible inventory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-playbook" class="md-nav__link">
+    Creating a playbook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-disk-image" class="md-nav__link">
+    Creating a disk image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-a-virtual-machine" class="md-nav__link">
+    Starting a virtual machine
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-hello-world-inside-the-guest" class="md-nav__link">
+    Running "Hello World" inside the guest
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Common recipes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Common recipes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Common recipes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qemu-from-source/" class="md-nav__link">
+        Building QEMU from git sources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qemu-rpm-installation/" class="md-nav__link">
+        Installing QEMU from RPM packages
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roles/" class="md-nav__link">
+        Role Reference
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-ansible" class="md-nav__link">
+    Installing Ansible
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloning-virt-roles" class="md-nav__link">
+    Cloning virt-roles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-an-ansible-inventory" class="md-nav__link">
+    Creating an Ansible inventory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-playbook" class="md-nav__link">
+    Creating a playbook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-disk-image" class="md-nav__link">
+    Creating a disk image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-a-virtual-machine" class="md-nav__link">
+    Starting a virtual machine
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-hello-world-inside-the-guest" class="md-nav__link">
+    Running "Hello World" inside the guest
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/virt-roles/virt-roles/edit/master/docs/tutorial.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="tutorial-a-hello-world-guest">Tutorial: A "Hello World" guest</h1>
+<p>This tutorial walks through the creation of a guest and running "Hello World"
+inside the guest. This basic workflow can be used in many situations like
+reproducing bugs or running benchmarks.</p>
+<p>We will write an Ansible playbook and run it from the local machine. Ansible
+will connect to the host and guest over ssh and execute the playbook steps
+there.</p>
+<h2 id="installing-ansible">Installing Ansible</h2>
+<p>Install Ansible:</p>
+<pre><code class="language-shell">(local)$ sudo dnf install ansible
+</code></pre>
+<p>From time to time Ansible features are deprecated so you may wish to build
+container images that combine a particular version of Ansible with your
+playbooks. This will ensure that your playbook executes successfully and
+without warnings in the future.</p>
+<h2 id="cloning-virt-roles">Cloning virt-roles</h2>
+<p>Clone the virt-roles git repository:</p>
+<pre><code class="language-shell">(local)$ git clone https://github.com/virt-roles/virt-roles.git
+</code></pre>
+<p>Make the roles available to Ansible by installing symlinks into
+<code>~/.ansible/roles/</code>:</p>
+<pre><code class="language-shell">(local)$ mkdir -p ~/.ansible/roles
+(local)$ cd ~/.ansible/roles
+(local)$ for f in ~/virt-tasks/*; do test -d &quot;$f&quot; &amp;&amp; ln -s &quot;$f&quot; .; done
+</code></pre>
+<p>Playbooks can now include roles from virt-roles.</p>
+<h2 id="creating-an-ansible-inventory">Creating an Ansible inventory</h2>
+<p>Ansible needs to know how to connect to the host and the guest (which we
+haven't created yet). This is done by specifying an Ansible inventory.</p>
+<p>Add <code>ssh_config(1)</code> <code>Host</code> entries for the host and the guest:</p>
+<pre><code class="language-ini">(local)$ cat &gt;&gt;~/.ssh/config
+Host myhost
+Hostname myhost.f.q.d.n
+User root
+StrictHostKeyChecking no
+
+Host myguest
+Hostname 192.168.122.192
+User root
+ProxyJump myhost
+StrictHostKeyChecking no
+^D
+</code></pre>
+<p>Here myhost.f.q.d.n is the fully-qualified domain name or IP address of the
+host. The guest IP address is 192.168.122.192, which may be the default IP
+address that libvirt assigns but you may need to adjust it for your system.</p>
+<p>The <code>ProxyJump</code> keyword specifies that myguest is reachable by sshing through
+myhost. This allows you to invoke <code>ssh myguest</code> to connect to the guest from
+your local machine.</p>
+<p>Create an Ansible inventory with ssh-config(1) <code>Host</code> aliases:</p>
+<pre><code class="language-ini">(local)$ cat &gt;hosts
+[hosts]
+myhost
+
+[guests]
+myguest
+^D
+</code></pre>
+<h2 id="creating-a-playbook">Creating a playbook</h2>
+<p>Now that the inventory has been defined we can test that Ansible can run a
+simple playbook on the host:</p>
+<pre><code class="language-shell">(local)$ cat &gt;tutorial.yml
+---
+- hosts: hosts
+  tasks:
+    - shell: echo &quot;Hello world from the host&quot;
+^D
+(local)$ ansible-playbook -v -i hosts tutorial.yml
+...
+TASK [shell] *********************************************************************************
+changed: [myhost] =&gt; {
+    &quot;changed&quot;: true,
+    &quot;cmd&quot;: &quot;echo \&quot;Hello world from the host\&quot;&quot;,
+    &quot;delta&quot;: &quot;0:00:00.002708&quot;,
+    &quot;rc&quot;: 0,
+}
+
+STDOUT:
+
+Hello world from the host
+
+PLAY RECAP ***********************************************************************************
+myhost                 : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+</code></pre>
+<p>We can see that <code>echo "Hello world from the host"</code> was run on myhost.</p>
+<h2 id="creating-a-disk-image">Creating a disk image</h2>
+<p>Now we can create a guest using the <a href="https://github.com/virt-roles/virt-roles/tree/main/virt-builder-create-image"><code>virt-builder-create-image</code> role</a>. The <code>tutorial.yml</code> file should now look like this:</p>
+<pre><code class="language-yaml">---
+- hosts: hosts
+  tasks:
+    - name: create disk image
+      include_role:
+          name: virt-builder-create-image
+      vars:
+        - os_version: fedora-34
+        - size: 64G
+        - output: /var/lib/libvirt/images/myguest.img
+</code></pre>
+<p>After running this playbook with <code>ansible-playbook -i hosts tutorial.yml</code> the
+disk image file will be located at <code>/var/lib/libvirt/images/myguest.img</code> on the
+host.</p>
+<h2 id="starting-a-virtual-machine">Starting a virtual machine</h2>
+<p>In order to create a virtual machine we need a disk image and libvirt domain
+XML that defines the virtual machine configuration.</p>
+<p>Writing libvirt domain XML from scratch is hard, but the <code>virt-install(1)</code>
+command can generate it for us:</p>
+<pre><code class="language-shell">(myhost)# virt-install --import --name myguest --ram 2048 --disk path=/var/lib/libvirt/images/myguest.img,format=raw --os-variant fedora34
+(myhost)# virsh dumpxml myguest
+...XML...
+</code></pre>
+<p>You can also dump the XML guests created with GNOME Boxes, virt-manager, or
+other tools on your local machine.</p>
+<p>Copy this XML into a file called <code>files/myguest.xml</code> so that the playbook can
+reference it. Once you have libvirt domain XML you can reuse it in other
+playbooks. You will not need to run <code>virt-install(1)</code> anymore.</p>
+<p>The <a href="https://github.com/virt-roles/virt-roles/tree/main/start-vm"><code>start-vm</code>
+role</a> launches a
+guest from the given libvirt domain XML. Extend <code>tutorial.yml</code> so it now looks
+like this:</p>
+<pre><code class="language-yaml">---
+- hosts: hosts
+  tasks:
+    - name: create disk image
+      include_role:
+          name: virt-builder-create-image
+      vars:
+        - os_version: fedora-34
+        - size: 64G
+        - output: /var/lib/libvirt/images/myguest.img
+
+    - name: start vm
+      include_role:
+          name: start-vm
+      vars:
+        - domain: test
+        - xml: &quot;{{ lookup('file', 'files/myguest.xml') }}&quot;
+</code></pre>
+<p>Note that you can template the libvirt domain XML using Ansible's
+<a href="https://docs.ansible.com/ansible/2.9/plugins/lookup/template.html"><code>lookup('template')</code>
+feature</a>.
+Template variables can be added into the "start vm" <code>vars</code> section.</p>
+<p>Run the playbook with <code>ansible-playbook -i hosts tutorial.yml</code> and the guest
+will be launched. Shut down the guest by running <code>virsh shutdown myguest</code> on
+the host.</p>
+<h2 id="running-hello-world-inside-the-guest">Running "Hello World" inside the guest</h2>
+<p>Finally we can run "Hello World" inside the guest. Simply add another play to
+<code>tutorial.yml</code> that runs the command inside myguest and then stops the guest
+using the <a href="https://github.com/virt-roles/virt-roles/tree/main/stop-vm"><code>stop-vm</code>
+role</a>:</p>
+<pre><code class="language-yaml">---
+- hosts: hosts
+  tasks:
+    - name: create disk image
+      include_role:
+          name: virt-builder-create-image
+      vars:
+        - os_version: fedora-34
+        - size: 64G
+        - output: /var/lib/libvirt/images/myguest.img
+
+    - name: start vm
+      include_role:
+          name: start-vm
+      vars:
+        - domain: test
+        - xml: &quot;{{ lookup('file', 'files/myguest.xml') }}&quot;
+
+- hosts: vms
+  tasks:
+    - shell: echo &quot;Hello World from inside the guest&quot;
+
+- hosts: hosts
+  tasks:
+    - name: stop vm
+      include_role:
+          name: stop-vm
+      vars:
+        - domain: myguest
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>Our short Ansible playbook specified that a disk image file should be built and
+"Hello World" should be run inside the guest. This is the starting point for
+automating your virtualization workflows using virt-roles and Ansible.</p>
+<p>The playbook and libvirt domain XML files can be shared with others or
+published in a git repository. This will allow you to collaborate or simply
+version control your work.</p>
+<p>You may now wish to look at the Ansible roles that <a href="https://github.com/virt-roles/virt-roles">virt-roles provides here</a>.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../why/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Why and when to automate" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Why and when to automate
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../qemu-from-source/" class="md-footer__link md-footer__link--next" aria-label="Next: Building QEMU from git sources" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Building QEMU from git sources
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
+      
+    
+  </body>
+</html>
