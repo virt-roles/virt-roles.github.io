@@ -9,3 +9,4 @@ nav:
   - Common recipes:
     - qemu-from-source.md
     - qemu-rpm-installation.md
+  - roles.md
